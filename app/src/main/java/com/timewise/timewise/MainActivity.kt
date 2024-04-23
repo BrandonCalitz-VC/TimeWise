@@ -18,6 +18,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        startActivity(Intent(this,SignIn::class.java))
+        startActivity(Intent(this,Auth::class.java))
     }
 }

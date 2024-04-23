@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpFragment">
+    tools:context=".SignInFragment">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,19 +18,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nice to Meet You 👋"
+            android:text="Hi There 👋"
             android:textSize="28dp"
             android:fontFamily="@font/inter_black"
             app:cornerRadius="20dp">
+
         </TextView>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
             android:layout_marginTop="32dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            >
+
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/SignUp.etEmail"
+                android:id="@+id/SignIn.etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
@@ -46,39 +47,26 @@
             android:elevation="10dp"
             android:layout_marginTop="8dp"
             app:cornerRadius="10dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            >
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/SignUp.etPassword"
+                android:id="@+id/SignIn.etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:inputType="textPassword"
                 />
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="10dp"
-            android:layout_marginTop="8dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/SignUp.etConfirmpassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Confirm Password"
-                android:inputType="textPassword"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/SignUp.btnSignUp"
+            android:id="@+id/SignIn.btnSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
-            android:text="Sign Up"
+            android:text="Sign In"
             app:cornerRadius="10dp"
             android:paddingHorizontal="50dp"
             android:fontFamily="@font/inter_extrabold"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp">
+        </com.google.android.material.button.MaterialButton>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,17 +76,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter"
-                android:text="Have an Account?"/>
+                android:text="Dont have an account yet?"/>
             <TextView
-                android:id="@+id/SignUp.SignIn"
+                android:id="@+id/SignIn_SignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_extrabold"
-                android:text=" Sign In"
+                android:text=" Sign Up"
 
                 />
         </LinearLayout>
 
     </LinearLayout>
-
 </FrameLayout>
