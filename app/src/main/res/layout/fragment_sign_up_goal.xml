@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".KnowYouFragment">
+    tools:context=".SignUpGoalFragment">
+
     <ImageButton
-        android:id="@+id/KY.Back"
+        android:id="@+id/Goal.Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/back"
@@ -26,62 +27,58 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lets get to know you"
+            android:text="What are your goals"
             android:textSize="28dp"
             android:fontFamily="@font/inter_black"
             app:cornerRadius="20dp"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Dont worry we won't tell 🤫"
+            android:text="What is your desired total number of working hours per day."
             android:textSize="14dp"
-            android:fontFamily="@font/inter_regular"
+            android:fontFamily="@font/inter_medium"
             app:cornerRadius="20dp"
+            android:textAlignment="center"
+            android:layout_marginTop="8dp"/>
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="You can change this later"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14dp"
+            android:fontFamily="@font/inter_medium"
+            app:cornerRadius="20dp"
+            android:textAlignment="center"
             android:layout_marginTop="8dp"/>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/KY.etFirstName.Layout"
+            android:id="@+id/Goal.etGoal.Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="10dp"
-            android:layout_marginTop="32dp"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/KY.etFirstName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="First Name"
-                android:inputType="text"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/KY.etLastName.Layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="10dp"
             android:layout_marginTop="8dp"
+            android:paddingHorizontal="50dp"
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/KY.etLastName"
+                android:id="@+id/Goal.etGoal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Last Name"
-                android:inputType="text"
+                android:hint="Hours"
+                android:inputType="number"
+                android:text="10"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/KY.btnContinue"
+            android:id="@+id/Goal.btnGetStarted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
-            android:text="Continue"
+            android:text="Get Started"
             app:cornerRadius="10dp"
             android:paddingHorizontal="50dp"
             android:fontFamily="@font/inter_extrabold"
-            android:layout_marginTop="16dp">
-        </com.google.android.material.button.MaterialButton>
+            android:layout_marginTop="16dp"
+            />
 
     </LinearLayout>
 </FrameLayout>

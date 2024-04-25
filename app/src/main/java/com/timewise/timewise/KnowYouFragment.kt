@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
 import com.timewise.timewise.databinding.FragmentKnowYouBinding
 
 class KnowYouFragment : Fragment() {
@@ -19,27 +20,39 @@ class KnowYouFragment : Fragment() {
     ): View {
         val view : View = inflater.inflate(R.layout.fragment_know_you, container, false);
         binding = FragmentKnowYouBinding.bind(view)
-        val email = arguments?.getString("email")
+//        val email = arguments?.getString("email")
+
+        binding.KYBack.setOnClickListener{
+            parentFragmentManager.popBackStack()
+        }
+        binding.KYBtnContinue.setOnClickListener{
+            val firstName:String = binding.KYEtFirstName.text.toString().trim()
+            val lastName:String = binding.KYEtLastName.text.toString().trim()
+
+            var isValid = true
+            if(firstName.isEmpty()){
+                binding.KYEtFirstNameLayout.handleError("Invalid First Name")
+                isValid = false
+            }
+            if(lastName.isEmpty()){
+                binding.KYEtLastNameLayout.handleError("Invalid Last Name")
+                isValid = false
+            }
+            if(!isValid) return@setOnClickListener
+
+            val args = arguments ?: Bundle()
+            args.putString("firstName",firstName)
+            args.putString("lastName",lastName)
+
+            val fragmentTwo = SignUpGoalFragment()
+            fragmentTwo.arguments = args
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragmentTwo)
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit()
+        }
         return view
     }
 
-//    companion object {
-//        /**
-//         * Use this factory method to create a new instance of
-//         * this fragment using the provided parameters.
-//         *
-//         * @param param1 Parameter 1.
-//         * @param param2 Parameter 2.
-//         * @return A new instance of fragment KnowYouFragment.
-//         */
-//        // TODO: Rename and change types and number of parameters
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            KnowYouFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString("email", param1)
-//                    putString("password", param2)
-//                }
-//            }
-//    }
 }

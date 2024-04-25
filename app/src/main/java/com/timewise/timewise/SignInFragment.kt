@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
 import com.timewise.timewise.databinding.FragmentSignInBinding
 import java.io.Console
 import kotlin.math.log
@@ -33,6 +34,7 @@ class SignInFragment : Fragment() {
         binding.SignInSignUp.setOnClickListener{
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer,SignUpFragment())
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
         }
 

@@ -21,10 +21,10 @@
             android:layout_height="wrap_content"
             android:text="Nice to Meet You 👋"
             android:textSize="28dp"
-            android:fontFamily="@font/inter_black"
-            app:cornerRadius="20dp">
+            android:fontFamily="@font/inter_black">
         </TextView>
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/SignUp.etEmail.Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
@@ -40,12 +40,12 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/SignUp.etPassword.Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:passwordToggleEnabled="true"
             android:elevation="10dp"
             android:layout_marginTop="8dp"
-            app:cornerRadius="10dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/SignUp.etPassword"
@@ -56,6 +56,7 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/SignUp.etConfirmpassword.Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"

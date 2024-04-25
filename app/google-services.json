@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "950895346400",
+    "project_id": "timewise-74dcc",
+    "storage_bucket": "timewise-74dcc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950895346400:android:fc4b036c498e5ba20e4685",
+        "android_client_info": {
+          "package_name": "com.timewise.timewise"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFcERL1tNqDj-1aolf0q7Th_yajB2ppDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
