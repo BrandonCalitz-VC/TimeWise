@@ -68,14 +68,7 @@ class SignUpGoalFragment : Fragment() {
              if (task.isSuccessful) {
                  Log.d(TAG, "SignUpWithCredential:success")
                  val db = Firebase.firestore
-
-                 val user = hashMapOf(
-                     "email" to email,
-                     "firstName" to firstName,
-                     "lastName" to lastName,
-                     "goal" to goal,
-                     "fbUserId" to auth.currentUser!!.uid
-                 )
+                val user: User = User(firstName,lastName,email,auth.currentUser!!.uid,goal)
                  db.collection("users").add(user)
                      .addOnSuccessListener { documentReference ->
                         Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
