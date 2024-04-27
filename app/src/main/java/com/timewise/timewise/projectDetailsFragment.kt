@@ -34,7 +34,7 @@ class projectDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_project_details, container, false)
+        return inflater.inflate(R.layout.fragment_task_details, container, false)
     }
 
     companion object {
