@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".projectCreationFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ProjectCreationFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,84 +31,106 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <ImageButton
-            android:layout_alignParentRight="true"
-            android:id="@+id/rightButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/purple_500"
-            android:src="@drawable/ic_add"
-            />
-
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="55dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:text="Project Name:"
+            android:fontFamily="@font/inter_bold"
          />
 
-        <EditText
-            android:layout_margin="5dp"
-            android:id="@+id/projectNameInput"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/purple_500"
-            android:hint="Enter Project Name"
-            android:textColor="@color/white"
-            />
-
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etName.Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:elevation="10dp"
+            android:textColorHint="@color/white"
+            app:hintTextColor="@android:color/transparent"
+            app:helperTextTextColor="@android:color/transparent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <CalendarView
-                android:id="@+id/startDatePick"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_gravity="center"
-                android:text="To" />
-
-            <CalendarView
-                android:layout_margin="5dp"
-                android:id="@+id/endDatePick"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
+                android:background="@drawable/common_google_signin_btn_text_light_normal_background"
+                android:backgroundTint="@color/purple_500"
+                android:textColor="@color/white"
+                android:hint="Enter Project Name"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description:" />
-
-        <EditText
-
-            android:layout_margin="5dp"
-            android:id="@+id/descriptionInput"
-            android:background="@color/purple_500"
+            android:text="Start and End Date:"
+            android:fontFamily="@font/inter_bold"
+            />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etCalendar.Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:minLines="4" />
+            android:elevation="10dp"
+            android:textColorHint="@color/white"
+            app:hintTextColor="@android:color/transparent"
+            app:helperTextTextColor="@android:color/transparent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:endIconDrawable="@drawable/calendar"
+            app:endIconMode="custom"
+            app:endIconTint="@color/white"
+            >
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCalendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_google_signin_btn_text_light_normal_background"
+                android:backgroundTint="@color/purple_500"
+                android:textColor="@color/white"
+                android:inputType="none"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description:"
+            android:fontFamily="@font/inter_bold"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etDescription.Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:textColorHint="@color/white"
+            app:hintTextColor="@android:color/transparent"
+            app:helperTextTextColor="@android:color/transparent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_google_signin_btn_text_light_normal_background"
+                android:backgroundTint="@color/purple_500"
+                android:textColor="@color/white"
+                android:inputType="textMultiLine"
+                android:maxLines="4"
+                android:lines="4"
+                android:gravity="start"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
             android:layout_margin="5dp"
             android:layout_width="match_parent"
@@ -118,7 +141,8 @@
                 android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Category:" />
+                android:text="Category:"
+                android:fontFamily="@font/inter_bold"/>
 
             <Spinner
                 android:layout_margin="5dp"
@@ -129,32 +153,7 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:background="@color/purple_500"
-            android:layout_height="wrap_content"
-            android:minHeight="40dp"/>
 
-        <LinearLayout
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_margin="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Attachment:" />
-
-        <Button
-            android:layout_margin="5dp"
-            android:id="@+id/addAttachmentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:textSize="10dp"
-            android:text="Add" />
-         </LinearLayout>
 
 
         <TextView
@@ -169,6 +168,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="100" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 </FrameLayout>

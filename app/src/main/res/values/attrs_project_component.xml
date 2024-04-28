@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="ProjectComponent">
+        <attr name="projectName" format="string" />
+        <attr name="projectProgress" format="integer" />
+        <attr name="projectCategories" format="string" />
+    </declare-styleable>
+</resources>

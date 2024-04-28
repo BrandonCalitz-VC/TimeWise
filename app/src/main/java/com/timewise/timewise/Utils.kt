@@ -88,7 +88,7 @@ public data class Project(
     val description: String? = null,
     val startDate: Date? = null,
     val endDate: Date? = null,
-    val categories: List<String>? = null,
-    val progress: Double = 0.0,
+    val categories: String? = null,
+    val progress: Int = 0,
     val attachments: List<String>?= null
 )

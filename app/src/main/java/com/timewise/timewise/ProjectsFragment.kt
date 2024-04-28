@@ -24,6 +24,7 @@ class ProjectsFragment : Fragment() {
         binding = FragmentProjectsBinding.bind(view)
         childFragmentManager.beginTransaction()
             .replace(binding.projectFragContainer.id,ProjectListFragment())
+            .addToBackStack(null)
             .commit();
         return view
     }
