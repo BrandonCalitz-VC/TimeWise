@@ -72,7 +72,7 @@ class SignUpGoalFragment : Fragment() {
                  db.collection("users").add(user)
                      .addOnSuccessListener { documentReference ->
                         Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                         startActivity(Intent(activity,Dashboard::class.java))
+                         startActivity(Intent(activity,MainActivity::class.java))
 
                     }
                      .addOnFailureListener { e ->

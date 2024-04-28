@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".projectListFragment">
+    tools:context=".ProjectListFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,20 +12,12 @@
         >
 
 
-        <ImageButton
-            android:id="@+id/leftButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/purple_500"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/back"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Task Details"
             android:layout_centerInParent="true"
             android:gravity="center"
+            android:text="Projects"
             android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold" />

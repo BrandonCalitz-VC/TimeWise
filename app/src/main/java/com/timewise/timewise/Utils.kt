@@ -1,13 +1,15 @@
 package com.timewise.timewise
 
-import android.content.ContentValues.TAG
 import android.text.TextUtils
-import android.util.Log
 import android.util.Patterns
+import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
+import java.lang.Exception
+import java.util.Date
 
 public fun TextInputLayout.handleError(message: String?){
     if (message == null){
@@ -36,20 +38,40 @@ fun String.isLongEnough() = length >= 8
 fun String.hasEnoughDigits() = count(Char::isDigit) > 0
 fun String.isMixedCase() = any(Char::isLowerCase) && any(Char::isUpperCase)
 fun String.hasSpecialChar() = any { it in "@!,+^-$%&*#?" }
+fun getUserDetails(id: String?, onComplete: (User?) -> Unit) {
+    try {
+        val db = Firebase.firestore
+        db.collection("users").whereEqualTo("fbUserId", id).get()
+            .addOnSuccessListener { documents ->
+            for (document in documents) {
+                onComplete(document.toObject<User>())
+                return@addOnSuccessListener
+              }
+            }
 
-public fun getUserDetails(id: String):User?{
-    val db = Firebase.firestore
-    var user:User? = null;
-    db.collection("users").whereEqualTo("fbUserId",id).get()
-        .addOnSuccessListener { documents ->
-        for (document in documents) {
-            user = document.toObject<User>()
-            return@addOnSuccessListener
-        }
+    }catch ( e: Exception){
+        onComplete(null)
     }
-    return user
-
 }
+
+fun getUserProjects(id: String?, onComplete: (List<Project>?) -> Unit) {
+
+    try {
+        val db = Firebase.firestore
+        db.collection("users").whereEqualTo("fbUserId", id).get()
+            .addOnSuccessListener { documents ->
+                val projects: MutableList<Project> = mutableListOf()
+            for (document in documents) {
+                projects.add(document.toObject<Project>())
+              }
+                onComplete(projects.toList())
+            }
+
+    }catch ( e: Exception){
+        onComplete(null)
+    }
+}
+
 
 
 public data class User(
@@ -58,4 +80,15 @@ public data class User(
     val email: String? = null,
     val fbUserId: String? = null,
     val goal: Int? = null
+)
+public data class Project(
+    val id: String? = null,
+    val fbUserId: String? = null,
+    val title: String? = null,
+    val description: String? = null,
+    val startDate: Date? = null,
+    val endDate: Date? = null,
+    val categories: List<String>? = null,
+    val progress: Double = 0.0,
+    val attachments: List<String>?= null
 )

@@ -63,7 +63,7 @@ class SignInFragment : Fragment() {
             auth.signInWithEmailAndPassword(email,password).addOnCompleteListener { task->
                 if (task.isSuccessful) {
                     Log.d(ContentValues.TAG, "SignInWithCredential:success")
-                    startActivity(Intent(activity,Dashboard::class.java))
+                    startActivity(Intent(activity,MainActivity::class.java))
 //                    val db = Firebase.firestore
 //
 //                    db.collection("users").add(user)
