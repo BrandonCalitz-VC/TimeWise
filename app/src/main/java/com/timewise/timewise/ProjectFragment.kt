@@ -45,7 +45,11 @@ class ProjectFragment : Fragment() {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 binding.taskList.removeAllViews()
-                tasks.filter { task -> task.progress <= 0 }.forEach { t->
+                var tempTasks: List<Task> = tasks.filter { task -> task.progress == 0 }
+                if(tab?.position ==1) tempTasks = tasks.filter { task -> task.progress in 1..99 }
+                else if(tab?.position ==2) tempTasks = tasks.filter { task -> task.progress == 100 }
+
+                tempTasks.forEach { t->
                     val tc = TaskComponent(requireContext(), t.title?:"", t.progress, t.categories?:"")
                     tc.setOnClickListener{
                         val frag = TaskFragment()
@@ -69,6 +73,14 @@ class ProjectFragment : Fragment() {
                 // Handle tab unselect
             }
         })
+        binding.rightButton.setOnClickListener{
+            val frag = TaskFragment()
+            frag.arguments = args
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.projectFragContainer,frag)
+                .addToBackStack(null)
+                .commit()
+        }
         return view
     }
 

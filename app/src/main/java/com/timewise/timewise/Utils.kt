@@ -59,13 +59,13 @@ fun getUserProjects(id: String?, onComplete: (List<Project>?) -> Unit) {
         db.collection("projects").whereEqualTo("fbUserId", id).get()
             .addOnSuccessListener { documents ->
                 val projects: MutableList<Project> = mutableListOf()
-            for (document in documents) {
-                projects.add(document.toObject<Project>())
-              }
+                for (document in documents) {
+                    projects.add(document.toObject<Project>())
+                }
                 onComplete(projects.toList())
             }
 
-    }catch ( e: Exception){
+    } catch (e: Exception) {
         onComplete(null)
     }
 }
@@ -86,8 +86,22 @@ fun getProjectTasks(id: String?, onComplete: (List<Task>?) -> Unit) {
         onComplete(null)
     }
 }
+fun getTask(id: String?, onComplete: (Task?) -> Unit) {
 
+    try {
+        val db = Firebase.firestore
+        db.collection("tasks").whereEqualTo("id", id).get()
+            .addOnSuccessListener { documents ->
+            for (document in documents) {
+                onComplete(document.toObject<Task>())
+                return@addOnSuccessListener
+              }
+            }
 
+    }catch ( e: Exception){
+        onComplete(null)
+    }
+}
 
 public data class User(
     val firstName: String? = null,
