@@ -33,20 +33,19 @@ class ProjectListFragment : Fragment() {
             getUserProjects(user!!.fbUserId) { projects ->
                 projects?.forEach { project: Project ->
                     val p = ProjectComponent(requireContext(),project.title ?: "", project.progress ?: 0,project.categories ?: "")
-
                     p.setOnClickListener{
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.projectFragContainer, ProjectFragment())
                             .addToBackStack(null)
                             .commit()
                     }
+                    binding.projectList.addView(p)
                 }
             }
         }
         binding.rightButton.setOnClickListener{
             parentFragmentManager.beginTransaction()
                 .replace(R.id.projectFragContainer, ProjectCreationFragment())
-                .addToBackStack(null)
                 .commit()
         }
 

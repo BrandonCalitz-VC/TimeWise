@@ -87,6 +87,7 @@
             app:endIconDrawable="@drawable/calendar"
             app:endIconMode="custom"
             app:endIconTint="@color/white"
+
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -97,6 +98,8 @@
                 android:backgroundTint="@color/purple_500"
                 android:textColor="@color/white"
                 android:inputType="none"
+                android:enabled="false"
+                android:allowClickWhenDisabled="true"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,6 +179,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Submit"/>

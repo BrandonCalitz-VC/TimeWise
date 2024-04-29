@@ -58,7 +58,7 @@ fun getUserProjects(id: String?, onComplete: (List<Project>?) -> Unit) {
 
     try {
         val db = Firebase.firestore
-        db.collection("users").whereEqualTo("fbUserId", id).get()
+        db.collection("projects").whereEqualTo("fbUserId", id).get()
             .addOnSuccessListener { documents ->
                 val projects: MutableList<Project> = mutableListOf()
             for (document in documents) {
@@ -90,5 +90,4 @@ public data class Project(
     val endDate: Date? = null,
     val categories: String? = null,
     val progress: Int = 0,
-    val attachments: List<String>?= null
 )
