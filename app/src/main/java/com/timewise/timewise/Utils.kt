@@ -2,10 +2,8 @@ package com.timewise.timewise
 
 import android.text.TextUtils
 import android.util.Patterns
-import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Firebase
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import java.lang.Exception
@@ -71,6 +69,23 @@ fun getUserProjects(id: String?, onComplete: (List<Project>?) -> Unit) {
         onComplete(null)
     }
 }
+fun getProjectTasks(id: String?, onComplete: (List<Task>?) -> Unit) {
+
+    try {
+        val db = Firebase.firestore
+        db.collection("tasks").whereEqualTo("projectId", id).get()
+            .addOnSuccessListener { documents ->
+                val tasks: MutableList<Task> = mutableListOf()
+            for (document in documents) {
+                tasks.add(document.toObject<Task>())
+              }
+                onComplete(tasks.toList())
+            }
+
+    }catch ( e: Exception){
+        onComplete(null)
+    }
+}
 
 
 
@@ -90,4 +105,15 @@ public data class Project(
     val endDate: Date? = null,
     val categories: String? = null,
     val progress: Int = 0,
+)
+public data class Task(
+    val id: String? = null,
+    val projectId: String? = null,
+    val title: String? = null,
+    val description: String? = null,
+    val startDate: Date? = null,
+    val endDate: Date? = null,
+    val categories: String? = null,
+    val progress: Int = 0,
+    val attachments: List<String>? = null
 )

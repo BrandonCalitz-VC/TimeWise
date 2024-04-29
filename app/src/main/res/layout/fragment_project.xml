@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#9C27B0"
     tools:context=".ProjectFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purple_500"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:backgroundTint="@color/purple_500"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/projectTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Project"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/rightButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/purple_500"
+            android:src="@drawable/ic_add" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/taskSections"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/navbar"
+        android:background="@color/purple_500"
+        android:orientation="horizontal">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/rowSelection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:tabIndicatorColor="@color/white"
+            android:backgroundTint="@color/purple_500"
+            app:tabTextColor="@color/white"
+            app:tabIndicatorHeight="3dp"
+            app:tabIndicator="@color/white"
+            android:paddingBottom="5dp"
+            >
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TODO" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_google_signin_btn_text_light_normal_background"
+                android:backgroundTint="#00FFFFFF"
+                android:text="ONGOING" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COMPLETE" />
+        </com.google.android.material.tabs.TabLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/taskList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@id/taskSections"
+        android:orientation="vertical">
 
-</FrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>

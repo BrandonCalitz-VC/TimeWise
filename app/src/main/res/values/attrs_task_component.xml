@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="TaskComponent">
+        <attr name="taskName" format="string" />
+        <attr name="taskProgress" format="integer" />
+        <attr name="taskCategories" format="string" />
+    </declare-styleable>
+</resources>

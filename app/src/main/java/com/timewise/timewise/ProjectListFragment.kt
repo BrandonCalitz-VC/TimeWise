@@ -34,8 +34,12 @@ class ProjectListFragment : Fragment() {
                 projects?.forEach { project: Project ->
                     val p = ProjectComponent(requireContext(),project.title ?: "", project.progress ?: 0,project.categories ?: "")
                     p.setOnClickListener{
+                        val frag = ProjectFragment()
+                        frag.arguments = arguments?: Bundle()
+                        frag.requireArguments().putString("projectId", project.id)
+
                         parentFragmentManager.beginTransaction()
-                            .replace(R.id.projectFragContainer, ProjectFragment())
+                            .replace(R.id.projectFragContainer, frag)
                             .addToBackStack(null)
                             .commit()
                     }
