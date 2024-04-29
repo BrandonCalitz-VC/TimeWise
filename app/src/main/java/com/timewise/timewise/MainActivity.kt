@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.dashboard -> {
                     supportFragmentManager.beginTransaction()
                         .replace(binding.fragmentContainer.id,DashboardFragment())
+                        .addToBackStack(null)
                         .commit()
 
                     true;
@@ -34,12 +35,14 @@ class MainActivity : AppCompatActivity() {
                 R.id.projects ->{
                     supportFragmentManager.beginTransaction()
                         .replace(binding.fragmentContainer.id,ProjectsFragment())
+                        .addToBackStack(null)
                         .commit()
                     true;
                 }
                 R.id.analytics ->{
                     supportFragmentManager.beginTransaction()
                         .replace(binding.fragmentContainer.id,AnalyticsFragment())
+                        .addToBackStack(null)
                         .commit()
                     true;
 
@@ -53,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportFragmentManager.beginTransaction()
             .replace(binding.fragmentContainer.id,DashboardFragment())
+            .addToBackStack(null)
             .commit();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
