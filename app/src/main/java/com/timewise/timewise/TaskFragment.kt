@@ -1,11 +1,18 @@
 package com.timewise.timewise
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.util.Pair
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.Firebase
@@ -19,13 +26,14 @@ class TaskFragment : Fragment() {
     private var taskId: String? = null;
     private lateinit var projectId: String;
     private lateinit var binding: FragmentTaskBinding
+    private lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
     private var startDate: Long = Long.MIN_VALUE
     private var endDate: Long = Long.MIN_VALUE
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View? {
         val view: View = inflater.inflate(R.layout.fragment_task, container, false)
         binding = FragmentTaskBinding.bind(view)
         val args = arguments
@@ -48,6 +56,26 @@ class TaskFragment : Fragment() {
         binding.leftButton.setOnClickListener{
             parentFragmentManager.popBackStack()
         }
+
+        binding.addAttachmentButton.setOnClickListener {
+            binding.addAttachmentButton.setOnClickListener {
+                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                intent.type = "image/*"
+
+                imagePickerLauncher.launch(intent)
+            }
+        }
+
+        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val selectedImageUri: Uri? = result.data?.data
+                binding.AttachmentImg.setImageURI(selectedImageUri)
+            }
+        }
+
+
+
+
 
         binding.etCalendar.setOnClickListener{
             val picker = MaterialDatePicker.Builder.dateRangePicker()
