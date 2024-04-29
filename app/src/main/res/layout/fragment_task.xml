@@ -8,6 +8,7 @@
     tools:context=".TaskFragment"
     >
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -152,6 +153,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+
+
             <TextView
                 android:layout_margin="5dp"
                 android:layout_width="wrap_content"
@@ -161,8 +164,20 @@
             <Spinner
                 android:layout_margin="5dp"
                 android:id="@+id/categorySpinner"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/AddCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add"/>
+
+            <Button
+                android:id="@+id/NewCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New"/>
 
 
         </LinearLayout>
@@ -193,6 +208,12 @@
                 android:textSize="10dp"
                 android:text="Add" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/AttachmentImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="80dp"/>
 
 
         <TextView
