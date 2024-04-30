@@ -41,7 +41,7 @@ class AnalyticsFragment : Fragment() {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
         startDate = calendar.time
-        calendar.add(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+        calendar.add(Calendar.DAY_OF_WEEK, 6)
         endDate = calendar.time
 
 
