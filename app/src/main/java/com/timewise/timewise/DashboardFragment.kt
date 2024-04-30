@@ -58,9 +58,12 @@ class DashboardFragment : Fragment() {
                         .addOnSuccessListener { userDocument ->
                             val userGoal = userDocument.getLong("goal")
                             if (userGoal != null) {
-                                val progress = (totalMinutesLogged.toFloat() / userGoal.toFloat()) * 100
+                                val progress =
+                                    (totalMinutesLogged.toFloat() / userGoal.toFloat()) * 100
 
                                 binding.progressCircle.progress = progress.toInt()
+                                binding.progressText.text =
+                                    (progress/100).toString() + "/" + userGoal.toString()
                             }
                         }
                         .addOnFailureListener {
