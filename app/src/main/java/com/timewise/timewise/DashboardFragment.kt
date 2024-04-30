@@ -28,7 +28,6 @@ class DashboardFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_dashboard, container, false)
         binding = FragmentDashboardBinding.bind(view)
 
-
         calcSetProgress()
         calcSetStreak()
 
@@ -38,7 +37,7 @@ class DashboardFragment : Fragment() {
     private fun calcSetProgress() {
         val currentDate = Calendar.getInstance().time
 
-        db.collection("TimeLog")
+        db.collection("timelogs")
             .whereEqualTo("date", currentDate)
             .whereEqualTo("userId", userId)
             .get()

@@ -8,6 +8,7 @@ import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import com.timewise.timewise.databinding.FragmentTimeLogBinding
 import java.util.Date
@@ -60,7 +61,12 @@ class TimeLogFragment : Fragment() {
 
             val db = Firebase.firestore
 
-            db.collection("timelogs").add(TimeLog(UUID.randomUUID().toString(),args.getString("taskId"),minutes,date))
+            db.collection("timelogs").add(
+                TimeLog(UUID.randomUUID().toString(),
+                    args.getString("taskId"),
+                    Firebase.auth.currentUser!!.uid,
+                    minutes,
+                    date))
                 .addOnSuccessListener {
                 parentFragmentManager.popBackStack()
             }

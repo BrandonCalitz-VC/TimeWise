@@ -157,6 +157,7 @@ public data class Task(
 public data class TimeLog(
     val id: String? = null,
     val taskId: String? = null,
+    val fbuserId: String? = null,
     val minutes: Int? = null,
     val date: Date? = null
 )
