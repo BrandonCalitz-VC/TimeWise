@@ -45,16 +45,17 @@
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
+            android:id="@+id/progressCircle"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="70dp"
-            android:indeterminate="false"
             android:layout_centerInParent="true"
+            android:layout_marginTop="70dp"
             android:layout_marginBottom="0dp"
+            android:indeterminate="false"
             android:max="100"
-            android:progress="20"
+            android:progress="0"
             android:progressDrawable="@drawable/progress_bar"
-            />
+            android:progressTint="#5E58BB" />
 
         <TextView
             android:id="@+id/progress_text"
@@ -91,6 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/first_text_view"
+            android:id="@+id/streakText"
             android:layout_centerHorizontal="true"
             android:text="Streak: 10🔥"
             android:textSize="25dp"
