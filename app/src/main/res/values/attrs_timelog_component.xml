@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="TimeLogComponent">
+        <attr name="minutes" format="integer" />
+        <attr name="date" format="string" />
+    </declare-styleable>
+</resources>

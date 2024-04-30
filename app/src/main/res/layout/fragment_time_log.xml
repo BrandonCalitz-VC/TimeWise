@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".KnowYouFragment">
-    <ImageButton
-        android:id="@+id/KY.Back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/back"
-        android:background="@android:color/transparent"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:contentDescription="Back"
-        android:elevation="20dp"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".TimeLogFragment">
+
+    <RelativeLayout
+        android:id="@+id/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purple_500"  android:orientation="horizontal"
+        >
+        <ImageButton
+            android:layout_alignParentStart="true"
+            android:id="@+id/leftButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/purple_500"
+            android:src="@drawable/back"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Time Log"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
         android:padding="20dp"
+        android:layout_below="@+id/navbar"
         >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lets get to know you"
-            android:textSize="28dp"
-            android:fontFamily="@font/inter_black"
-            app:cornerRadius="20dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dont worry we won't tell 🤫"
-            android:textSize="14dp"
-            android:fontFamily="@font/inter_regular"
-            app:cornerRadius="20dp"
-            android:layout_marginTop="8dp"/>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/KY.etFirstName.Layout"
+            android:id="@+id/etMinutes.Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
@@ -48,36 +49,37 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/KY.etFirstName"
+                android:id="@+id/etMinutes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="First Name"
-                android:inputType="text"
+                android:hint="Minutes"
+                android:inputType="number"
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/KY.etLastName.Layout"
+            android:id="@+id/etDate.Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="10dp"
             android:layout_marginTop="8dp"
             >
-
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/KY.etLastName"
+                android:id="@+id/etDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Last Name"
-                android:inputType="text"
+                android:hint="Date"
+                android:inputType="none"
+                android:allowClickWhenDisabled="true"
+                android:enabled="false"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/KY.btnContinue"
+            android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
-            android:text="Continue"
+            android:text="Submit"
             app:cornerRadius="10dp"
             android:paddingHorizontal="50dp"
             android:fontFamily="@font/inter_extrabold"
@@ -85,4 +87,5 @@
         </com.google.android.material.button.MaterialButton>
 
     </LinearLayout>
-</FrameLayout>
+
+</RelativeLayout>

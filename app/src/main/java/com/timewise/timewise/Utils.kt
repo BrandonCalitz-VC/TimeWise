@@ -41,10 +41,8 @@ fun getUserDetails(id: String?, onComplete: (User?) -> Unit) {
         val db = Firebase.firestore
         db.collection("users").whereEqualTo("fbUserId", id).get()
             .addOnSuccessListener { documents ->
-            for (document in documents) {
-                onComplete(document.toObject<User>())
+                onComplete(documents.firstOrNull()?.toObject<User>())
                 return@addOnSuccessListener
-              }
             }
 
     }catch ( e: Exception){
@@ -86,18 +84,43 @@ fun getProjectTasks(id: String?, onComplete: (List<Task>?) -> Unit) {
         onComplete(null)
     }
 }
-fun getTask(id: String?, onComplete: (Task?) -> Unit) {
+fun getTimeSheet(id: String?, onComplete: (List<TimeLog>?) -> Unit) {
 
+    try {
+        val db = Firebase.firestore
+        db.collection("timelogs").whereEqualTo("taskId", id).get()
+            .addOnSuccessListener { documents ->
+            val timelogs: MutableList<TimeLog> = mutableListOf()
+            for (document in documents) {
+                timelogs.add(document.toObject<TimeLog>())
+              }
+                onComplete(timelogs.toList())
+            }
+
+    }catch ( e: Exception){
+        onComplete(null)
+    }
+}
+fun getProject(id: String?, onComplete: (Project?) -> Unit) {
+    try {
+        val db = Firebase.firestore
+        db.collection("projects").whereEqualTo("id", id).get()
+            .addOnSuccessListener { documents ->
+                onComplete(documents.firstOrNull()?.toObject<Project>())
+                return@addOnSuccessListener
+            }
+    }catch ( e: Exception){
+        onComplete(null)
+    }
+}
+fun getTask(id: String?, onComplete: (Task?) -> Unit) {
     try {
         val db = Firebase.firestore
         db.collection("tasks").whereEqualTo("id", id).get()
             .addOnSuccessListener { documents ->
-            for (document in documents) {
-                onComplete(document.toObject<Task>())
+                onComplete(documents.firstOrNull()?.toObject<Task>())
                 return@addOnSuccessListener
-              }
             }
-
     }catch ( e: Exception){
         onComplete(null)
     }
@@ -130,4 +153,10 @@ public data class Task(
     val categories: String? = null,
     val progress: Int = 0,
     val attachments: List<String>? = null
+)
+public data class TimeLog(
+    val id: String? = null,
+    val taskId: String? = null,
+    val minutes: Int? = null,
+    val date: Date? = null
 )

@@ -19,6 +19,10 @@ class ProjectFragment : Fragment() {
         binding = FragmentProjectBinding.bind(view)
         val args = requireArguments()
         val projectId = args.getString("projectId")
+        getProject(projectId){
+            project ->
+            binding.projectTitle.text = project!!.title
+        }
         getProjectTasks(projectId){ts ->
             tasks = ts?: emptyList()
             binding.taskList.removeAllViews()
@@ -80,6 +84,9 @@ class ProjectFragment : Fragment() {
                 .replace(R.id.projectFragContainer,frag)
                 .addToBackStack(null)
                 .commit()
+        }
+        binding.backButton.setOnClickListener{
+            parentFragmentManager.popBackStack()
         }
         return view
     }

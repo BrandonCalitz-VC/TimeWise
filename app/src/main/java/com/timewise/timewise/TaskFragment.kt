@@ -57,6 +57,15 @@ class TaskFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
+        binding.rightButton.setOnClickListener{
+            val frag = TimeSheetFragment()
+            frag.arguments = args
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.projectFragContainer, frag)
+                .addToBackStack(null)
+                .commit()
+        }
+
         binding.addAttachmentButton.setOnClickListener {
             binding.addAttachmentButton.setOnClickListener {
                 val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

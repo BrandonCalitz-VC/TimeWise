@@ -21,10 +21,15 @@
             android:layout_alignParentBottom="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:itemBackground="@android:color/holo_blue_dark"
             app:itemIconTint="@drawable/selector"
             app:itemTextColor="@drawable/selector"
+            android:elevation="20dp"
             app:menu="@menu/menu"
+            app:labelVisibilityMode="unlabeled"
+            app:itemIconSize="30dp"
+            app:itemActiveIndicatorStyle="@android:color/transparent"
+
+
 />
 
 

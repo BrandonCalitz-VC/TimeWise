@@ -50,6 +50,7 @@ class ProjectListFragment : Fragment() {
         binding.rightButton.setOnClickListener{
             parentFragmentManager.beginTransaction()
                 .replace(R.id.projectFragContainer, ProjectCreationFragment())
+                .addToBackStack(null)
                 .commit()
         }
 
