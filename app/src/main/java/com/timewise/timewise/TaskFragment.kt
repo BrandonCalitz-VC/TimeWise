@@ -72,14 +72,12 @@ class TaskFragment : Fragment() {
                 .commit()
         }
 
-        binding.addAttachmentButton.setOnClickListener {
             binding.addAttachmentButton.setOnClickListener {
                 val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 intent.type = "image/*"
 
                 imagePickerLauncher.launch(intent)
             }
-        }
 
         imagePickerLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && result.data != null) {
