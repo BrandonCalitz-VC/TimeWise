@@ -94,7 +94,7 @@
             android:layout_below="@+id/first_text_view"
             android:id="@+id/streakText"
             android:layout_centerHorizontal="true"
-            android:text="Streak: 10🔥"
+            android:text="Streak: 0🔥"
             android:textSize="25dp"
             />
 

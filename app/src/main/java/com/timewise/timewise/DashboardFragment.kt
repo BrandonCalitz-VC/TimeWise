@@ -39,7 +39,7 @@ class DashboardFragment : Fragment() {
 
         db.collection("timelogs")
             .whereEqualTo("date", currentDate)
-            .whereEqualTo("userId", userId)
+            .whereEqualTo("fbuserId", userId)
             .get()
             .addOnSuccessListener { documents ->
                 var totalMinutesLogged = 0

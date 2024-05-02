@@ -135,6 +135,12 @@
                 android:gravity="start"
                 />
         </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category:"
+            android:fontFamily="@font/inter_bold"/>
         <LinearLayout
             android:layout_margin="5dp"
             android:layout_width="match_parent"
@@ -142,12 +148,7 @@
             android:orientation="horizontal">
 
 
-            <TextView
-                android:layout_margin="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Category:"
-                android:fontFamily="@font/inter_bold"/>
+
 
             <Spinner
                 android:layout_margin="5dp"
