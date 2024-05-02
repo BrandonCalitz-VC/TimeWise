@@ -182,12 +182,17 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_margin="5dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etcatName"
             android:layout_width="match_parent"
-            android:background="@color/purple_500"
             android:layout_height="wrap_content"
-            android:minHeight="40dp"/>
+            android:background="@drawable/common_google_signin_btn_text_light_normal_background"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@color/white"
+            android:hint="Categories"
+            android:inputType="text"
+
+            />
 
         <LinearLayout
             android:layout_margin="5dp"
