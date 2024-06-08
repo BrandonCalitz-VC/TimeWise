@@ -101,6 +101,23 @@ fun getTimeSheet(id: String?, onComplete: (List<TimeLog>?) -> Unit) {
         onComplete(null)
     }
 }
+fun getTimeLogs(id: String?, onComplete: (List<TimeLog>?) -> Unit) {
+
+    try {
+        val db = Firebase.firestore
+        db.collection("timelogs").whereEqualTo("fbuserId",id).get()
+            .addOnSuccessListener { documents ->
+            val timelogs: MutableList<TimeLog> = mutableListOf()
+            for (document in documents) {
+                timelogs.add(document.toObject<TimeLog>())
+              }
+                onComplete(timelogs.toList())
+            }
+
+    }catch ( e: Exception){
+        onComplete(null)
+    }
+}
 fun getProject(id: String?, onComplete: (Project?) -> Unit) {
     try {
         val db = Firebase.firestore
