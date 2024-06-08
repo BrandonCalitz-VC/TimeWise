@@ -40,8 +40,8 @@ android {
 }
 
 
-
 dependencies {
+    implementation ("com.github.AnyChart:AnyChart-Android:1.1.2")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
