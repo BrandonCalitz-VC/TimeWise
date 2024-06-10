@@ -76,8 +76,8 @@ class AnalyticsFragment : Fragment() {
     }
 
     private fun refresh() {
-        binding.startDate.text = SimpleDateFormat("dd/MM/yyyy").format(startDate)
-        binding.endDate.text = SimpleDateFormat("dd/MM/yyyy").format(endDate)
+        binding.startDate.text = startDate?.let { SimpleDateFormat("dd/MM/yyyy").format(it) } ?: "No start date"
+        binding.endDate.text = endDate?.let { SimpleDateFormat("dd/MM/yyyy").format(it) } ?: "No end date"
 
         getTimeLogs(userId) { timelogs ->
             if (timelogs != null) {
@@ -103,7 +103,7 @@ class AnalyticsFragment : Fragment() {
                         avgs.filter { it / 60.0 >= user.goal!! }.count().toString()
                     binding.belowGoal.text = calculateMissedGoals(groupedByDate, user.goal!!).toString()
 
-                    setupChart(groupedByDate, user.goal?.toFloat() ?: 0f)
+                    setupChart(groupedByDate, user.goal.toFloat())
                 }
             } else {
                 Log.e("AnalyticsFragment", "No timelogs found")
