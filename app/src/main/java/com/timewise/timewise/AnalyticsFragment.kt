@@ -177,6 +177,7 @@ class AnalyticsFragment : Fragment() {
 
 
         anyChartView.setChart(cartesian)
+
     }
 
     private fun getStartOfDay(date: Date): Date {
