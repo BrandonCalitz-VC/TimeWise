@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         if (Firebase.auth.currentUser == null) {
             startActivity(Intent(this,Auth::class.java))
             return

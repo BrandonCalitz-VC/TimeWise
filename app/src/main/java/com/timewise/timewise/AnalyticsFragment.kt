@@ -43,9 +43,10 @@ class AnalyticsFragment : Fragment() {
         binding = FragmentAnalyticsBinding.bind(view)
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-        startDate = calendar.time
+        startDate = getStartOfDay(calendar.time)
         calendar.add(Calendar.DAY_OF_WEEK, 6)
-        endDate = calendar.time
+
+        endDate = getStartOfDay(calendar.time)
 
         refresh()
         binding.startDate.setOnClickListener {
@@ -82,7 +83,7 @@ class AnalyticsFragment : Fragment() {
         getTimeLogs(userId) { timelogs ->
             if (timelogs != null) {
                 timesheet = timelogs.filter { it.date != null && it.date >= startDate!! && it.date <= endDate!! }
-
+                if(timesheet.isEmpty()) return@getTimeLogs;
                 getUserDetails(userId) { user ->
                     if (user == null) {
                         Log.e("AnalyticsFragment", "User details are null")
@@ -129,9 +130,10 @@ class AnalyticsFragment : Fragment() {
     }
 
     private fun setupChart(groupedByDate: Map<Date, List<TimeLog>>, goal: Float) {
-        val anyChartView: AnyChartView = binding.root.findViewById(R.id.DataChart)
-        val cartesian = AnyChart.line()
+        val anyChartView: AnyChartView = binding.DataChart
+        anyChartView.refreshDrawableState()
 
+        val cartesian = AnyChart.line()
         cartesian.animation(true)
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT)
         cartesian.yAxis(0).title("Hours Worked")
@@ -158,7 +160,7 @@ class AnalyticsFragment : Fragment() {
         series.hovered().markers()
             .type(MarkerType.CIRCLE)
             .size(4.0)
-        series.tooltip().position("right").anchor(Anchor.LEFT_CENTER).offsetX(5.0).offsetY(5.0)
+        series.tooltip().position("right").anchor(Anchor.LEFT_CENTER).offsetX(0.0).offsetY(0.0)
 
         // Add constant goal line
         val goalSeriesData = seriesData.map { dataEntry ->
@@ -172,6 +174,7 @@ class AnalyticsFragment : Fragment() {
         cartesian.legend().enabled(true)
         cartesian.legend().fontSize(13.0)
         cartesian.legend().padding(0, 0, 10, 0)
+
 
         anyChartView.setChart(cartesian)
     }
