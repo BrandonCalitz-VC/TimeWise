@@ -15,6 +15,8 @@ This readme will take you over the contents of the application and how the featu
  - we added stats to the analytics page for more details.
 
 <h3>Youtube Link</h3>
+https://youtu.be/0wM7yfySrlA
+
 <h3>Research + Design Docs</h3>
 
  - In Docs Folder in Repo
