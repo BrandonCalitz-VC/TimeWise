@@ -2,6 +2,7 @@ package com.timewise.timewise
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +20,12 @@ import com.anychart.core.cartesian.series.Line
 import com.anychart.enums.Anchor
 import com.anychart.enums.MarkerType
 import com.anychart.enums.TooltipPositionMode
-import com.anychart.enums.HoverMode
 import com.google.firebase.firestore.toObject
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import kotlin.collections.ArrayList
+import kotlin.math.roundToInt
 
 class AnalyticsFragment : Fragment() {
     private lateinit var binding: FragmentAnalyticsBinding
@@ -74,39 +75,60 @@ class AnalyticsFragment : Fragment() {
         return view
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun refresh() {
         binding.startDate.text = SimpleDateFormat("dd/MM/yyyy").format(startDate)
         binding.endDate.text = SimpleDateFormat("dd/MM/yyyy").format(endDate)
 
-        val db = Firebase.firestore
-        val timelogRef = db.collection("timelogs")
-        timelogRef
-            .whereGreaterThanOrEqualTo("date", startDate!!)
-            .whereLessThanOrEqualTo("date", endDate!!)
-            .get().addOnSuccessListener { documents ->
-                val list = mutableListOf<TimeLog>()
-                for (timelogRef in documents) {
-                    val timeLog = timelogRef.toObject<TimeLog>()
-                    if (timeLog.fbuserId == userId) list.add(timeLog)
-                }
-                timesheet = list.toList()
+        getTimeLogs(userId) { timelogs ->
+            if (timelogs != null) {
+                timesheet = timelogs.filter { it.date != null && it.date >= startDate!! && it.date <= endDate!! }
 
                 getUserDetails(userId) { user ->
-                    binding.hrsWorked.text = timesheet.sumOf { timelog -> timelog.minutes ?: 0 }.div(60.0).toString()
+                    if (user == null) {
+                        Log.e("AnalyticsFragment", "User details are null")
+                        return@getUserDetails
+                    }
+
+                    val totalMinutes = timesheet.sumOf { it.minutes ?: 0 }
+                    binding.hrsWorked.text = (totalMinutes / 60.0).roundToInt().toString()
+
                     val avgs = mutableListOf<Int>()
-                    timesheet.groupBy { tl -> tl.date }.forEach { (_, s) -> avgs.add(s.sumOf { v -> v.minutes!! }) }
+                    val groupedByDate = timesheet.groupBy { getStartOfDay(it.date!!) }
+                    for (logs in groupedByDate.values) {
+                        avgs.add(logs.sumOf { it.minutes ?: 0 })
+                    }
 
-                    binding.avgHrs.text = avgs.average().div(60.0).toString()
-                    binding.metGoal.text = avgs.filter { a -> a.div(60.0) >= user?.goal!! }.count().toString()
-                    binding.belowGoal.text = avgs.filter { a -> a.div(60.0) < user?.goal!! }.count().toString()
+                    binding.avgHrs.text = (avgs.average() / 60.0).roundToInt().toString()
+                    binding.metGoal.text =
+                        avgs.filter { it / 60.0 >= user.goal!! }.count().toString()
+                    binding.belowGoal.text = calculateMissedGoals(groupedByDate, user.goal!!).toString()
 
-                    setupChart(user?.goal?.toFloat() ?: 0f)
+                    setupChart(groupedByDate, user.goal?.toFloat() ?: 0f)
                 }
+            } else {
+                Log.e("AnalyticsFragment", "No timelogs found")
             }
+        }
     }
 
-    private fun setupChart(goal: Float) {
+    private fun calculateMissedGoals(groupedByDate: Map<Date, List<TimeLog>>, goal: Int): Int {
+        var missedGoalCount = 0
+        var currentDate = startDate
+        while (currentDate!!.before(endDate) || currentDate == endDate) {
+            val logsForDate = groupedByDate[getStartOfDay(currentDate)]
+            val hours = logsForDate?.sumOf { it.minutes ?: 0 }?.div(60.0) ?: 0.0
+            if (hours < goal) {
+                missedGoalCount++
+            }
+            val calendar = Calendar.getInstance()
+            calendar.time = currentDate
+            calendar.add(Calendar.DATE, 1)
+            currentDate = calendar.time
+        }
+        return missedGoalCount
+    }
+
+    private fun setupChart(groupedByDate: Map<Date, List<TimeLog>>, goal: Float) {
         val anyChartView: AnyChartView = binding.root.findViewById(R.id.DataChart)
         val cartesian = AnyChart.line()
 
@@ -118,9 +140,16 @@ class AnalyticsFragment : Fragment() {
 
         val seriesData = ArrayList<DataEntry>()
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd")
-        timesheet.groupBy { it.date }.forEach { (date, logs) ->
-            val hours = logs.sumOf { it.minutes ?: 0 } / 60.0
-            seriesData.add(ValueDataEntry(dateFormatter.format(date), hours))
+
+        var currentDate = startDate
+        while (currentDate!!.before(endDate) || currentDate == endDate) {
+            val logsForDate = groupedByDate[getStartOfDay(currentDate)]
+            val hours = logsForDate?.sumOf { it.minutes ?: 0 }?.div(60.0) ?: 0.0
+            seriesData.add(ValueDataEntry(dateFormatter.format(currentDate), hours))
+            val calendar = Calendar.getInstance()
+            calendar.time = currentDate
+            calendar.add(Calendar.DATE, 1)
+            currentDate = calendar.time
         }
 
         val series: Line = cartesian.line(seriesData)
@@ -131,7 +160,7 @@ class AnalyticsFragment : Fragment() {
             .size(4.0)
         series.tooltip().position("right").anchor(Anchor.LEFT_CENTER).offsetX(5.0).offsetY(5.0)
 
-        // Add MaxLine line
+        // Add constant goal line
         val goalSeriesData = seriesData.map { dataEntry ->
             ValueDataEntry(dataEntry.getValue("x").toString(), goal)
         }
@@ -147,11 +176,13 @@ class AnalyticsFragment : Fragment() {
         anyChartView.setChart(cartesian)
     }
 
-    private fun getUserDetails(userId: String?, callback: (User?) -> Unit) {
-        val db = Firebase.firestore
-        db.collection("users").document(userId!!).get().addOnSuccessListener { document ->
-            val user = document.toObject<User>()
-            callback(user)
-        }
+    private fun getStartOfDay(date: Date): Date {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        return calendar.time
     }
 }

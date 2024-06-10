@@ -13,6 +13,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Calendar
 import java.util.Date
+import kotlin.math.round
 
 class DashboardFragment : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
@@ -38,36 +39,41 @@ class DashboardFragment : Fragment() {
     }
 
     private fun calcSetProgress() {
-        val currentDate =getStartOfDay( Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))
+        val currentDate = getStartOfDay(
+            Date.from(
+                LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()
+            )
+        )
         getUserDetails(userId) { user ->
             var progress = 0f
             getTimeLogs(userId) { timeLogs ->
-                if(user?.goal == null) return@getTimeLogs
+                if (user?.goal == null) return@getTimeLogs
                 if (timeLogs != null) {
                     var totalMinutesLogged = 0
-                    var logs = timeLogs.filter { x -> getStartOfDay(x.date!!).compareTo(currentDate)==0}
+                    var logs =
+                        timeLogs.filter { x -> getStartOfDay(x.date!!).compareTo(currentDate) == 0 }
                     totalMinutesLogged = logs.sumOf { x -> x.minutes!! }
-                    progress = ((totalMinutesLogged.toFloat() /60) / user.goal.toFloat())*100
+                    progress = ((totalMinutesLogged.toFloat() / 60) / user.goal.toFloat()) * 100
                     binding.progressCircle.progress = progress.toInt()
                     binding.progressText.text =
-                        (totalMinutesLogged.toFloat() /60).toString() + "/" + user?.goal.toString()
+                        (totalMinutesLogged.toFloat() / 60).toString() + "/" + user?.goal.toString()
                     val dailyTotals = timeLogs.groupBy { getStartOfDay(it.date!!) }
-                        .mapValues { entry -> entry.value.sumOf { it.minutes!! }/60 }
+                        .mapValues { entry -> entry.value.sumOf { it.minutes!! } / 60 }
                     var date = currentDate
                     var streak = 0
-                    while (true){
-                        date = Date.from(LocalDate.now().minusDays(streak.toLong()).atStartOfDay(ZoneId.systemDefault()).toInstant())
-                        if(dailyTotals.containsKey(date) && dailyTotals[date]!! >= user.goal){
+                    while (true) {
+                        date = Date.from(
+                            LocalDate.now().minusDays(streak.toLong())
+                                .atStartOfDay(ZoneId.systemDefault()).toInstant()
+                        )
+                        if (dailyTotals.containsKey(date) && dailyTotals[date]!! >= user.goal) {
                             streak++
-                        }else{
+                        } else {
                             break
                         }
                     }
                     binding.streakText.text = "Streak: $streak🔥"
                 }
-
-
-
 
 
             }
@@ -135,8 +141,7 @@ class DashboardFragment : Fragment() {
                     "Failed to find current user"
                 }
         }
+
     }
-
-
 
 }
