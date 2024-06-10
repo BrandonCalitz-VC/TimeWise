@@ -13,3 +13,8 @@ This readme will take you over the contents of the application and how the featu
  - The user can add time logs to each task
  - the user can view a graph of all recorded times and the goal is also displayed
  - we added stats to the analytics page for more details.
+
+<h3>Youtube Link</h3>
+<h3>Research + Design Docs</h3>
+
+ - In Docs Folder in Repo
